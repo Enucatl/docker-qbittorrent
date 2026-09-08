@@ -42,7 +42,6 @@ services:
       - net.ipv6.conf.all.disable_ipv6=0
     restart: unless-stopped
     labels:
-      - "checkmk_monitor=true"
       - "traefik.enable=true"
       - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.${DOCKER_DOMAIN}`)"
       - "traefik.http.routers.qbittorrent.entrypoints=https"
