@@ -5,7 +5,7 @@ services:
       file: ../compose-security-baseline/hardening.yml
       service: hardened-tiny
     networks:
-      - traefik_proxy
+      - qbittorrent_traefik
     user: "1000:1000"
     command:
       - python
@@ -37,12 +37,13 @@ services:
       - "6881:6881/udp"
       - "9000:9000"
     networks:
-      - traefik_proxy
+      - qbittorrent_traefik
     sysctls:
       - net.ipv6.conf.all.disable_ipv6=0
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=qbittorrent_traefik"
       - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.${DOCKER_DOMAIN}`)"
       - "traefik.http.routers.qbittorrent.entrypoints=https"
       - "traefik.http.routers.qbittorrent.tls=true"
@@ -56,5 +57,6 @@ volumes:
   qbittorrent.var:
 
 networks:
-  traefik_proxy:
-    external: true
+  qbittorrent_traefik:
+    name: qbittorrent_traefik
+    enable_ipv6: true
