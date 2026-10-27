@@ -60,3 +60,7 @@ networks:
   qbittorrent_traefik:
     name: qbittorrent_traefik
     enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 172.18.160.0/20
+        - subnet: 2a02:168:6278:a415::/64
